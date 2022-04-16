@@ -4,49 +4,25 @@ main {
   gap: 1rem;
   border-radius: 8px;
   padding: 1rem;
+  max-width: 450px;
 }
 
 button {
   padding: 0.5rem 1rem;
+  padding-top: .75rem;
+  line-height: .5;
   color: #444B5A;
   background-color: #EAE3DC;
-  font-size: 1.5rem;
-  border-radius: 8px;
-  text-transform: uppercase;
-  border: 0;
-  border-bottom: 2px solid #B4A597;
-  box-sizing: border-box;
-}
-
-button:last-of-type {
-  background-color: #D03F2F;
-  border-bottom: 2px solid #93261A;
-  color: #fff;
-}
-
-.display {
-  background-color: #182034;
-  color: #fff;
   font-size: 2rem;
-  font-weight: bold;
-  width: 100%;
-  padding: 1rem;
+  border-radius: 8px;
+  border: 0;
+  border-bottom: 3px solid #B4A597;
+  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  text-align: end;
-  height: 80px;
-  align-items: space-between;
-  border-radius: 5px;
-}
-
-.keyboard {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-rows: repeat(5, 5vh);
-  grid-template-columns: repeat(4, 1fr);
-  background-color: #232C43;
-  padding: 1rem;
-  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-weight: 700;
 }
 
 .large {
@@ -54,9 +30,65 @@ button:last-of-type {
 }
 
 .del {
+  text-transform: uppercase;
   color: white;
   background-color: #637097;
-  border-bottom: 2px solid #404E72;
+  border-bottom: 3px solid #404E72;
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
+
+button:nth-child(17) {
+  text-transform: uppercase;
+  color: white;
+  background-color: #637097;
+  border-bottom: 3px solid #404E72;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+button:last-of-type {
+  background-color: #D03F2F;
+  border-bottom: 3px solid #93261A;
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.display {
+  background-color: #182034;
+  flex-grow: 0;
+  color: #fff;
+  font-size: 3rem;
+  font-weight: bold;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  text-align: center;
+  height: 100px;
+  align-items: center;
+  white-space: nowrap; 
+  overflow: hidden;
+  border-radius: 8px;
+  text-overflow: ellipsis;
+}
+
+.keyboard {
+  display: grid;
+  grid-gap: 1.125rem;
+  grid-template-rows: repeat(5, 50px);
+  grid-template-columns: repeat(4, 80px);
+  background-color: #232C43;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+
+
+
 
 

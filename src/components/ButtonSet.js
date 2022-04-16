@@ -14,20 +14,14 @@ export default function ButtonSet(props) {
   const [operation, setOperation] = useState('');
   const [num, setNum] = useState('0');
 
-  // Parcialmente terminado
   const numInputHandler = ({ target: { value } }) => {
     if (num.length < 16) {
-      //   // TODO: do not include 0 if there's no value
-      //   setEnteredNumber(enteredNumber + value);
-      // }
-      // if (calc.inputNum.length < 16) {
-      //   setCalc({ ...calc, inputNum: calc.inputNum + value });
-      // setNum(num + value);
-      setNum(num === '0' ? value : num + value);
+      setNum(
+        num === '0' || num === 'Infinity' || num === 'NaN' ? value : num + value
+      );
     }
   };
 
-  // Parcialmente terminado
   const decimalHandler = ({ target: { value } }) => {
     if (num.includes('.')) {
       return;
@@ -36,15 +30,19 @@ export default function ButtonSet(props) {
     }
   };
 
-  // Parcialmente terminado
   const resetHandler = () => {
     setNum('0');
   };
 
-  // Parcialmente terminado
   const deleteInputHandler = () => {
     const updatedDisplay = num.slice(0, -1);
     setNum(updatedDisplay === '' ? '0' : updatedDisplay);
+  };
+
+  const handleOperations = (newResult) => {
+    setNum(newResult.toString());
+    setStoredValue('');
+    setOperation('');
   };
 
   const equalsHandler = () => {
@@ -52,30 +50,22 @@ export default function ButtonSet(props) {
     switch (operation) {
       case '+': {
         const newResult = +storedValue + +num;
-        setNum(newResult.toString());
-        setStoredValue('');
-        setOperation('');
+        handleOperations(newResult);
         break;
       }
       case '-': {
         const newResult = +storedValue - +num;
-        setNum(newResult.toString());
-        setStoredValue('');
-        setOperation('');
+        handleOperations(newResult);
         break;
       }
       case '*': {
         const newResult = +storedValue * +num;
-        setNum(newResult.toString());
-        setStoredValue('');
-        setOperation('');
+        handleOperations(newResult);
         break;
       }
       case '/': {
         const newResult = +storedValue / +num;
-        setNum(newResult.toString());
-        setStoredValue('');
-        setOperation('');
+        handleOperations(newResult);
         break;
       }
     }
@@ -99,7 +89,8 @@ export default function ButtonSet(props) {
       <div className="display">
         {storedValue && (
           <span>
-            {storedValue} {operation}
+            {storedValue}
+            {operation}
           </span>
         )}
         <span>{num}</span>
