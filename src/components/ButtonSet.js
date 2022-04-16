@@ -10,106 +10,81 @@ const buttons = [
 ];
 
 export default function ButtonSet(props) {
-  const [enteredNumber, setEnteredNumber] = useState('');
-
   const [storedValue, setStoredValue] = useState('');
   const [operation, setOperation] = useState('');
-  const [num, setNum] = useState('');
-
-  const [calc, setCalc] = useState({
-    operation: '',
-    inputNum: '',
-    result: '',
-    storedValue: '',
-  });
-
-  const [result, setResult] = useState('0');
+  const [num, setNum] = useState('0');
 
   // Parcialmente terminado
   const numInputHandler = ({ target: { value } }) => {
-    // if (enteredNumber.length < 16) {
-    //   // TODO: do not include 0 if there's no value
-    //   setEnteredNumber(enteredNumber + value);
-    // }
-    // if (calc.inputNum.length < 16) {
-    //   setCalc({ ...calc, inputNum: calc.inputNum + value });
-    // }
-    setNum(num + value);
+    if (num.length < 16) {
+      //   // TODO: do not include 0 if there's no value
+      //   setEnteredNumber(enteredNumber + value);
+      // }
+      // if (calc.inputNum.length < 16) {
+      //   setCalc({ ...calc, inputNum: calc.inputNum + value });
+      // setNum(num + value);
+      setNum(num === '0' ? value : num + value);
+    }
   };
 
   // Parcialmente terminado
   const decimalHandler = ({ target: { value } }) => {
-    console.log(value);
-    if (enteredNumber.includes('.')) {
+    if (num.includes('.')) {
       return;
     } else {
-      // TODO: include 0 if there's no value
-      setEnteredNumber(enteredNumber + value);
+      setNum(num === '0' ? '0' + value : num + value);
     }
   };
 
   // Parcialmente terminado
   const resetHandler = () => {
-    setEnteredNumber('');
+    setNum('0');
   };
 
   // Parcialmente terminado
   const deleteInputHandler = () => {
-    const updatedDisplay = enteredNumber.slice(0, -1);
-    setEnteredNumber(updatedDisplay);
+    const updatedDisplay = num.slice(0, -1);
+    setNum(updatedDisplay === '' ? '0' : updatedDisplay);
   };
 
   const equalsHandler = () => {
     if (num.length === 0 || storedValue === 0) return;
     switch (operation) {
       case '+': {
-        const newResult = +num + +storedValue;
-        setCalc({
-          operation: '',
-          inputNum: newResult,
-          result: '',
-          storedValue: '',
-        });
+        const newResult = +storedValue + +num;
         setNum(newResult.toString());
-        setStoredValue(null);
+        setStoredValue('');
         setOperation('');
         break;
       }
       case '-': {
-        const newResult = +calc.storedValue - +calc.inputNum;
-        setCalc({
-          operation: '',
-          inputNum: newResult,
-          result: '',
-          storedValue: '',
-        });
+        const newResult = +storedValue - +num;
+        setNum(newResult.toString());
+        setStoredValue('');
+        setOperation('');
         break;
       }
       case '*': {
-        const newResult = +calc.inputNum * +calc.storedValue;
-        setCalc({
-          operation: '',
-          inputNum: newResult,
-          result: '',
-          storedValue: '',
-        });
+        const newResult = +storedValue * +num;
+        setNum(newResult.toString());
+        setStoredValue('');
+        setOperation('');
         break;
       }
       case '/': {
-        const newResult = +calc.storedValue / +calc.inputNum;
-        setCalc({
-          operation: '',
-          inputNum: newResult,
-          result: '',
-          storedValue: '',
-        });
+        const newResult = +storedValue / +num;
+        setNum(newResult.toString());
+        setStoredValue('');
+        setOperation('');
         break;
       }
     }
   };
 
   const operationHandler = ({ target: { value } }) => {
-    if (operation) {
+    if (operation && storedValue && num) {
+      return equalsHandler();
+    } else if (operation) {
       return;
     }
     // set an operation
@@ -117,31 +92,14 @@ export default function ButtonSet(props) {
     // set the value to be calculated
     setStoredValue(!storedValue && num ? num : storedValue);
     setNum('');
-
-    // calc.storedValue
-    //   ? setCalc({ ...calc, operation: value, inputNum: '' })
-    //   : setCalc({
-    //       ...calc,
-    //       operation: value,
-    //       storedValue: calc.inputNum,
-    //       inputNum: '',
-    //     });
   };
-console.log(num)
+
   return (
     <main>
-      {/* <input
-        value={calc.inputNum}
-        text="text"
-        id="display"
-        className="display"
-        readOnly
-        placeholder="0"
-      /> */}
       <div className="display">
         {storedValue && (
           <span>
-            {operation} {storedValue}
+            {storedValue} {operation}
           </span>
         )}
         <span>{num}</span>
@@ -153,7 +111,13 @@ console.log(num)
             <button
               key={index}
               value={btn}
-              className={btn === '=' || btn === 'Reset' ? 'large' : ''}
+              className={
+                btn === '=' || btn === 'Reset'
+                  ? 'large'
+                  : btn === 'del'
+                  ? 'del'
+                  : null
+              }
               onClick={
                 btn === 'Reset'
                   ? resetHandler
