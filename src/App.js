@@ -1,26 +1,18 @@
 import Header from './components/Header';
-import ButtonSet from './components/ButtonSet';
-import './App.css';
+import Calculator from './components/Calculator';
 import styled, { ThemeProvider } from 'styled-components';
 import { themes } from './themes/themes';
 import { useState } from 'react';
+import Footer from './components/Footer';
 
-const Footer = styled.footer`
-  position: fixed;
-  height: 10px;
-  botton: 0;
-  width: 100%;
-  background: linear-gradient(to bottom right, #333333, #121212);
-`;
-
-const Divzao = styled.div`
+const Container = styled.div`
+  background-color: ${(props) => props.theme.colors.background.main};
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
+  justify-content: center;
   height: 100vh;
-  background-color: ${(props) => props.theme.colors.background.main};
+  width: 100%;
 `;
 
 function App() {
@@ -42,11 +34,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Divzao>
+      <Container>
         <Header toggleTheme={toggleTheme} />
-        <ButtonSet />
-        {/* <Footer /> */}
-      </Divzao>
+        <Calculator />
+        <Footer />
+      </Container>
     </ThemeProvider>
   );
 }
