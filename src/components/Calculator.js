@@ -37,7 +37,7 @@ export default function ButtonSet(props) {
   };
 
   const deleteInputHandler = () => {
-    if (storedValue !== null) {
+    if (storedValue !== '') {
       const updatedDisplay = num.slice(0, -1);
       return setNum(updatedDisplay);
     }
