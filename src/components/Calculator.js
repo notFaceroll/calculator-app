@@ -56,22 +56,30 @@ export default function ButtonSet(props) {
     switch (operation) {
       case '+': {
         const newResult = +storedValue + +num;
-        handleOperations(newResult.toFixed(2));
+        handleOperations(
+          newResult % 1 !== 0 ? newResult.toFixed(2) : newResult
+        );
         break;
       }
       case '-': {
         const newResult = +storedValue - +num;
-        handleOperations(newResult.toFixed(2));
+        handleOperations(
+          newResult % 1 !== 0 ? newResult.toFixed(2) : newResult
+        );
         break;
       }
       case '*': {
         const newResult = +storedValue * +num;
-        handleOperations(newResult.toFixed(2));
+        handleOperations(
+          newResult % 1 !== 0 ? newResult.toFixed(2) : newResult
+        );
         break;
       }
       case '/': {
         const newResult = +storedValue / +num;
-        handleOperations(newResult.toFixed(2));
+        handleOperations(
+          newResult % 1 !== 0 ? newResult.toFixed(2) : newResult
+        );
         break;
       }
     }
@@ -106,6 +114,25 @@ export default function ButtonSet(props) {
         {buttons.flat().map((btn, index) => {
           return (
             <button
+              aria-label={
+                btn === 'Reset'
+                  ? 'Reset'
+                  : btn === '+'
+                  ? 'Plus Operator'
+                  : btn === '-'
+                  ? 'Minus Operator'
+                  : btn === '*'
+                  ? 'Times Operator'
+                  : btn === '/'
+                  ? 'Division Operator'
+                  : btn === '='
+                  ? 'Equalize'
+                  : btn === 'del'
+                  ? 'Delete'
+                  : btn === '.'
+                  ? 'Decimal'
+                  : `Number ${btn}`
+              }
               key={index}
               value={btn}
               className={

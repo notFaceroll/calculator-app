@@ -25,7 +25,7 @@ export const MainContent = styled.main`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.5s ease, transform 0.1s ease;
+    /* transition: all 0.5s ease, transform 0.1s ease; */
 
     &:active {
       transform: scale(0.95);
